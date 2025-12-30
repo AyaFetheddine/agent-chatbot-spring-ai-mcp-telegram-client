@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import reactor.core.publisher.Flux;
+import ma.fetheddine.emsibot.tools.AITools;
 
 @Component
 public class AIAgent {
     private ChatClient chatClient;
-    public AIAgent(ChatClient.Builder builder, ChatMemory memory) {
+    public AIAgent(ChatClient.Builder builder, ChatMemory memory, AITools tools) {
         this.chatClient = builder
                 .defaultSystem("""
                         Vous un assistant qui se charge de répondre aux question
@@ -19,6 +20,7 @@ public class AIAgent {
                         """)
                 .defaultAdvisors(
                         MessageChatMemoryAdvisor.builder(memory).build())
+                .defaultTools(tools)
                 .build();
     }
 
