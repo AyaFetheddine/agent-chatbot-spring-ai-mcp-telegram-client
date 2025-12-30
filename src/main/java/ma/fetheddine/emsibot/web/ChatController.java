@@ -1,21 +1,21 @@
 package ma.fetheddine.emsibot.web;
 
-import org.springframework.ai.chat.client.ChatClient;
+import ma.fetheddine.emsibot.agents.AIAgent;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
+
+import java.awt.*;
 
 @RestController
 public class ChatController {
-    private ChatClient chatClient;
-
-    public ChatController(ChatClient.Builder builder) {
-        this.chatClient = builder.build();
+    private AIAgent aiAgent;
+    public ChatController(AIAgent aiAgent) {
+        this.aiAgent = aiAgent;
     }
-
-    @GetMapping("/chat")
-    public String chat(String query) {
-        return chatClient.prompt()
-                .user(query)
-                .call().content();
+    @GetMapping(value = "/chat", produces = MediaType.TEXT_PLAIN_VALUE)
+    public Flux<String> chat(String query) {
+        return aiAgent.askAgent(query);
     }
 }
