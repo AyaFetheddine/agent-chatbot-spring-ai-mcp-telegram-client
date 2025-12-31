@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ma.fetheddine</groupId>
-    <artifactId>emsi-bot</artifactId>
+    <artifactId>mcp-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>emsi-bot</name>
-    <description>emsi-bot</description>
+    <name>mcp-server</name>
+    <description>mcp-server</description>
     <url/>
     <licenses>
         <license/>
@@ -37,16 +37,13 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-model-google-genai</artifactId>
+            <artifactId>spring-ai-starter-mcp-server-webmvc</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-mcp-client</artifactId>
         </dependency>
     </dependencies>
     <dependencyManagement>
