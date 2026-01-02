@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
-import reactor.core.publisher.Flux;
 
 import java.util.Arrays;
 
@@ -17,6 +16,7 @@ public class AIAgent {
 
     public AIAgent(ChatClient.Builder builder,
                    ChatMemory memory, ToolCallbackProvider tools) {
+        System.out.println("Initializing AIAgent...");
         Arrays.stream(tools.getToolCallbacks()).forEach(toolCallback -> {
             System.out.println("----------------------");
             System.out.println(toolCallback.getToolDefinition());
@@ -32,12 +32,13 @@ public class AIAgent {
                         MessageChatMemoryAdvisor.builder(memory).build())
                 .defaultToolCallbacks(tools)
                 .build();
+        System.out.println("AIAgent initialized successfully.");
     }
 
     @GetMapping("/chat")
-    public Flux<String> askAgent(String query) {
+    public String askAgent(String query) {
         return chatClient.prompt()
                 .user(query)
-                .stream().content();
+                .call().content();
     }
 }
