@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 
 import java.util.Arrays;
 
@@ -30,6 +31,7 @@ public class AIAgent {
                         """)
                 .defaultAdvisors(
                         MessageChatMemoryAdvisor.builder(memory).build())
+                .defaultAdvisors(new SimpleLoggerAdvisor())
                 .defaultToolCallbacks(tools)
                 .build();
         System.out.println("AIAgent initialized successfully.");

@@ -39,7 +39,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         return args -> {
             System.out.println("==================================================");
             System.out.println("Checking Telegram Bot Registration...");
-            
+
             if (telegramBotToken == null || telegramBotToken.equals("${TELEGRAM_API_KEY}")) {
                 System.err.println("ERROR: TELEGRAM API KEY IS NOT SET!");
                 System.err.println("Please set the TELEGRAM_API_KEY environment variable.");
@@ -82,13 +82,13 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
             String messageText = telegraRequest.getMessage().getText();
             Long chatId = telegraRequest.getMessage().getChatId();
-            
+
             System.out.println(">>> RECEIVED MESSAGE from " + chatId + ": " + messageText);
             logger.info("Received message from chatId {}: {}", chatId, messageText);
 
             sendTypingQuestion(chatId);
             String answer = aiAgent.askAgent(messageText);
-            
+
             if (answer == null || answer.trim().isEmpty()) {
                 answer = "Desole, je n'ai pas pu generer de reponse.";
                 logger.warn("Agent returned empty response for message: {}", messageText);
@@ -118,7 +118,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         SendMessage sendMessage = new SendMessage(String.valueOf(chatId), text);
         execute(sendMessage);
     }
-    
+
     private void sendTypingQuestion(long chatId) throws TelegramApiException {
         SendChatAction sendChatAction = new SendChatAction();
         sendChatAction.setChatId(String.valueOf(chatId));
